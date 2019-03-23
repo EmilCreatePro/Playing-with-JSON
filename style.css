@@ -1,0 +1,24 @@
+#title{
+    text-align: center;
+    background-color: black;
+    color: white;
+    padding: 10px;
+}
+.myForm{
+    padding:10px;
+    border:2px solid #3498db;
+    background:#F0F8FF;
+    border-radius:15px;
+    display:none;
+  }
+
+.inputForm {
+    position: fixed;
+    padding: 2px;
+    left:20%;
+  }
+#fillWarning
+{
+    color:red;
+    display:none;
+}

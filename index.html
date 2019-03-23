@@ -1,0 +1,51 @@
+<html>
+    <head>
+    <title>Emilianus</title>
+    </head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <body onload="start();">
+        <header id="title">
+            <h1>Playing with some JSON</h1>
+        </header>
+        <script type="text/javascript" src="src/script.js"></script> 
+        
+        <button id="button" onclick="listItems()">Display</button>
+        <button id="clearbtn" onclick="clearDisplay()">Clear</button>
+        <button id="show" onclick="exportToJSON()">Export</button>
+        <button id="remove" onclick="deleteUserForm()">Remove User</button>
+        <button id="addBtn" onclick="addUserForm()">Add User</button>
+        
+        <p id="items"></p>
+
+        <form id="deleteForm" class="myForm" >
+            <b>user to delete(username):</b> <input id ="delUser" type="text" name="username">
+            <button type="button" onclick="findAndDeletUser()">Delete</button>
+        </form>
+        <div>
+        <form id="addForm" class="myForm">
+            <div>
+            <b>Name:</b> <input id ="name" class="inputForm" type="text" name="name">
+            <br><br>
+            <b>Username:</b> <input id ="username" class="inputForm" type="text" name="username">
+            <br><br>
+            <b>Email:</b> <input id ="email" class="inputForm" type="text" name="email">
+            <br><br>
+            <b>Street:</b> <input id ="street" class="inputForm" type="text" name="street">
+            <br><br>
+            <b>Suite:</b> <input id ="suite" class="inputForm" type="text" name="suite">
+            <br><br>
+            <b>City:</b> <input id ="city" class="inputForm" type="text" name="city">
+            <br><br>
+            <b>Zipcode:</b> <input id ="zipcode" class="inputForm" type="text" name="zipcode">
+            <br><br>
+            <b>Latitude:</b> <input id ="lat" class="inputForm" type="text" name="lat">
+            <br><br>
+            <b>Longitude:</b> <input id ="lng" class="inputForm" type="text" name="lng">
+            <br><br><br>
+            </div>
+            <button type="button" onclick="addUserToList()">Add</button>
+        </form>
+        <p id="fillWarning">Please don't let a filed blank!</p>
+        </div>
+    </body>
+    </html>
