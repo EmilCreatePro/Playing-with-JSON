@@ -27,11 +27,9 @@
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
-}
-
-#usersTabel{
   display:none;
 }
+
 
 #usersTabel td, #usersTabel th {
   border: 1px solid #ddd;
@@ -48,4 +46,16 @@
   text-align: left;
   background-color: rgb(15, 17, 15);
   color: white;
+}
+
+.mainButtons
+{
+  background-color: rgb(11, 15, 11); /* Green */
+  color: white;
+  padding: 10px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
 }

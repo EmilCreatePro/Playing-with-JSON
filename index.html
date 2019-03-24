@@ -8,13 +8,13 @@
             <h1>Playing with some JSON</h1>
         </header>
         <script type="text/javascript" src="browser-code/script.js"></script> 
-        
-        <button id="button" onclick="listItems()">Display</button>
-        <button id="clearbtn" onclick="clearTable()">Clear</button>
-        <button id="show" onclick="exportToJSON()">Export</button>
-        <button id="remove" onclick="deleteUserForm()">Remove User</button>
-        <button id="addBtn" onclick="addUserForm()">Add User</button>
-        <button id="modifyBtn" onclick="modifyUserList()">Change User</button>
+        <br>
+        <button id="button" onclick="listItems()" class="mainButtons">Display</button>
+        <button id="clearbtn" onclick="clearTable()" class="mainButtons">Clear Display</button>
+        <button id="show" onclick="exportToJSON()" class="mainButtons">Export</button>
+        <button id="remove" onclick="deleteUserForm()" class="mainButtons">Remove User</button>
+        <button id="addBtn" onclick="addUserForm()" class="mainButtons">Add User</button>
+        <button id="modifyBtn" onclick="searchUserToModifyForm()" class="mainButtons">Change User</button>
         
         <p id="items"></p>
         

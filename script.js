@@ -1,34 +1,31 @@
-var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
-var _ = require('lodash');
+//var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
+//var _ = require('lodash');
 var $ = require('jquery');
-
-
-
-const initialRead = () =>
-    {
-        return new Promise (function(resolve, reject)
-{
-    fetch('users.json')//make a fetch request
-    .then(response => 
-    {
-    if(response.ok)
-    {
-        return response.json();//if the response had no problems then return the response converted to json
-    }
-    throw new Error('Request Failed! Could not read JSON file!');//if we reach this point the response was not ok and we through error
-    }, networkError => reject(networkError.message)
-    ).then(jsonResponse => {
-        //alert("PLM" + JSON.stringify(jsonResponse));
-        //return jsonResponse;
-        resolve(jsonResponse);
-    });
-
-}
-); 
-    }
 
 let list = ' ';//give dummy value of list at first
 
+const initialRead = () =>
+{
+    return new Promise (function(resolve, reject)
+    {
+        fetch('users.json')//make a fetch request
+        .then(response => 
+        {
+        if(response.ok)
+        {
+            return response.json();//if the response had no problems then return to the next then the response converted to json 
+        }
+        throw new Error('Request Failed! Could not read JSON file!');//if we reach this point the response was not ok and we through error
+        }, networkError => reject(networkError.message)
+        ).then(jsonResponse => 
+            {
+                resolve(jsonResponse);//when the promise is resolved the jsonResponse will be given
+            });
+
+    }); 
+}
+
+//function called when page load
 window.start = async function()//it's an asynchronous function, it returns a promise when called
 {
     try
@@ -58,7 +55,6 @@ const showTable = () =>
 window.clearTable = function() //use window to make function visible to the outside scope
 {
     $("#clearbtn").click(function(){
-            //document.getElementById('#usersTabel').innerHTML ="";
             hideTable();
     });
 }
@@ -113,11 +109,10 @@ window.addUserToList = function()
             return false;
         }
     let newItem={
-        "id": parseInt(list[list.length - 1].id) + 1
+        "id": list.length===0 ? 0 : parseInt(list[list.length - 1].id) + 1//in case there are no users then add id to be 0
     };
     for(let pos = 0; pos < item.length; pos++)
     {
-        //newItem[id] = parseInt(list[list.length-1].id) + 1;
         let index = 0;
         newItem.name=item[index++];
         newItem.username=item[index++];
@@ -154,25 +149,6 @@ const displayToNotifyMessage = (message) =>
     },2000);
 }
 
-window.deleteUserForm = function() //use window to make function visible to the outside scope
-{
-    hideTable();
-    $(document).ready(function(){
-        $("#remove").click(function(){
-            $("#deleteForm").toggle();
-        });
-    });
-}
-
-window.modifyUserList = function() //use window to make function visible to the outside scope
-{
-    hideTable();
-    $(document).ready(function(){
-        $("#modifyBtn").click(function(){
-            $("#searchUserForm").toggle();
-        });
-    });
-}
 
 let wasUserFound = -1;
 
@@ -180,7 +156,6 @@ window.findUser = function()
 {
     hideTable();
     let userNameGiven = document.getElementById("searchUser").value;
-    //document.forms["deleteForm"]["username"].value;
     if(userNameGiven === '')
     {
         alert("Please give a username to search!");
@@ -260,6 +235,26 @@ window.addUserForm = function()
     $(document).ready(function(){
         $("#addBtn").click(function(){
             $("#addForm").toggle();
+        });
+    });
+}
+
+window.deleteUserForm = function() //use window to make function visible to the outside scope
+{
+    hideTable();
+    $(document).ready(function(){
+        $("#remove").click(function(){
+            $("#deleteForm").toggle();
+        });
+    });
+}
+
+window.searchUserToModifyForm = function() //use window to make function visible to the outside scope
+{
+    hideTable();
+    $(document).ready(function(){
+        $("#modifyBtn").click(function(){
+            $("#searchUserForm").toggle();
         });
     });
 }
