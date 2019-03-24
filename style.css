@@ -13,10 +13,10 @@
   }
 
 .inputForm {
-    position: fixed;
     padding: 2px;
     left:20%;
   }
+
 #fillWarning
 {
     color:red;

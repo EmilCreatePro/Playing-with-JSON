@@ -107,17 +107,18 @@ window.addUserToList = function()
     for(let pos = 0; pos < item.length; pos++)
     {
         //newItem[id] = parseInt(list[list.length-1].id) + 1;
-        newItem.name=item[pos];
-        newItem.username=item[pos];
-        newItem.email=item[pos];
+        let index = 0;
+        newItem.name=item[index++];
+        newItem.username=item[index++];
+        newItem.email=item[index++];
         let address1={};//create dummy object first, to add this object as field to newItem object
         let geo1={};
-        address1["street"]=item[pos];
-        address1["suite"]=item[pos];
-        address1["city"]=item[pos];
-        address1["zipcode"]=item[pos];
-        geo1["lat"]=item[pos];
-        geo1["lng"]=item[pos];
+        address1["street"]=item[index++];
+        address1["suite"]=item[index++];
+        address1["city"]=item[index++];
+        address1["zipcode"]=item[index++];
+        geo1["lat"]=item[index++];
+        geo1["lng"]=item[index++];
         address1.geo = geo1;
         newItem.address = address1;
     }
@@ -177,4 +178,14 @@ window.addUserForm = function()
             $("#addForm").toggle();
         });
     });
+}
+
+window.exportToJSON = function()
+{
+    var jsonContent = JSON.stringify(list);
+    var fs = require('browserify-fs');
+
+    fs.writeFile('./output.json', jsonContent);
+
+    alert("JSON exported!");
 }
