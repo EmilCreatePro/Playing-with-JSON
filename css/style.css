@@ -1,0 +1,51 @@
+#title{
+    text-align: center;
+    background-color: black;
+    color: white;
+    padding: 10px;
+}
+.myForm{
+    padding:10px;
+    border:2px solid #c711a0;
+    background:#F0F8FF;
+    border-radius:15px;
+    display:none;
+  }
+
+.inputForm {
+    padding: 2px;
+    left:20%;
+  }
+
+#notify
+{
+    color:red;
+    display:none;
+}
+
+#usersTabel {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#usersTabel{
+  display:none;
+}
+
+#usersTabel td, #usersTabel th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#usersTabel tr:nth-child(even){background-color: #f2f2f2;}
+
+#usersTabel tr:hover {background-color: #ddd;}
+
+#usersTabel th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: rgb(15, 17, 15);
+  color: white;
+}

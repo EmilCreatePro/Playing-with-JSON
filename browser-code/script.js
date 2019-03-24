@@ -43146,20 +43146,30 @@ window.start = async function()//it's an asynchronous function, it returns a pro
     //$("#deleteForm").toggle();//initially don't display the forms
 }
 
-
-window.clearDisplay = function() //use window to make function visible to the outside scope
+const hideTable = () =>
 {
-    if(wasDisplayed == true)
-    {
-        $("#clearbtn").click(function(){
-            document.getElementById('items').innerHTML ="";
-            wasDisplayed = false;
-          });
-    }
+    $("#usersTabel tr").remove();
+    document.getElementById('usersTabel').style.display="none";
+    wasDisplayed = false;
+}
+
+const showTable = () =>
+{
+    document.getElementById('usersTabel').style.display="block";
+    wasDisplayed = true;
+}
+
+window.clearTable = function() //use window to make function visible to the outside scope
+{
+    $("#clearbtn").click(function(){
+            //document.getElementById('#usersTabel').innerHTML ="";
+            hideTable();
+    });
 }
 
 window.findAndDeletUser = function()
 {
+    hideTable();
     let userNameGiven = document.getElementById("delUser").value;
     //document.forms["deleteForm"]["username"].value;
     if(userNameGiven === '')
@@ -43173,15 +43183,16 @@ window.findAndDeletUser = function()
         {
             list.splice(pos,1);//delete 1 user from position pos 
             console.log("Username found and deleted!");
-            if(wasDisplayed == true)
-            {
-                document.getElementById('items').innerHTML ="";
-                display();
-            }
+            displayToNotifyMessage('Username found and deleted!');
+            //document.getElementById('items').innerHTML ="";
+            //hideTable();
+            //display();
+            $("#deleteForm").toggle();
             return true;
         }
     }
     console.log("Username not found!");
+    displayToNotifyMessage("Username not found!");
 }
 
 window.addUserToList = function()
@@ -43202,7 +43213,7 @@ window.addUserToList = function()
     for(let pos = 0; pos < item.length; pos++)
         if(item[pos] === '')
         {
-            displayToFillMessage();
+            displayToNotifyMessage('Please don\'t let a field blank!');
             return false;
         }
     let newItem={
@@ -43232,22 +43243,24 @@ window.addUserToList = function()
     console.log(list);
     let form = document.getElementById("addForm");
     form.style.display = "none";
-    alert("User added succesfully!");
+    displayToNotifyMessage('User was added succesfully!');
     
 }
 
-const displayToFillMessage = () =>
+const displayToNotifyMessage = (message) =>
 {
-    let warning = document.getElementById("fillWarning");
+    let warning = document.getElementById("notify");
+    warning.innerHTML = message;
     warning.style.display = "block";
     setTimeout(function()
     {
         warning.style.display = "none";
-    },3000);
+    },2000);
 }
 
 window.deleteUserForm = function() //use window to make function visible to the outside scope
 {
+    hideTable();
     $(document).ready(function(){
         $("#remove").click(function(){
             $("#deleteForm").toggle();
@@ -43255,28 +43268,99 @@ window.deleteUserForm = function() //use window to make function visible to the 
     });
 }
 
+window.modifyUserList = function() //use window to make function visible to the outside scope
+{
+    hideTable();
+    $(document).ready(function(){
+        $("#modifyBtn").click(function(){
+            $("#searchUserForm").toggle();
+        });
+    });
+}
+
+let wasUserFound = -1;
+
+window.findUser = function()
+{
+    hideTable();
+    let userNameGiven = document.getElementById("searchUser").value;
+    //document.forms["deleteForm"]["username"].value;
+    if(userNameGiven === '')
+    {
+        alert("Please give a username to search!");
+        return false;
+    }
+
+    for(let i = 0; i < list.length; i++)
+    {
+        if(userNameGiven === list[i].username)
+        {
+            wasUserFound = i;
+            break;
+        }
+    }
+
+    if(wasUserFound !== -1)
+    {
+           document.getElementById("nameC").value = list[wasUserFound].name;
+           document.getElementById("usernameC").value = list[wasUserFound].username;
+           document.getElementById("emailC").value = list[wasUserFound].email;
+           document.getElementById("streetC").value = list[wasUserFound].address.street;
+           document.getElementById("suiteC").value = list[wasUserFound].address.suite;
+           document.getElementById("cityC").value = list[wasUserFound].address.city;
+           document.getElementById("zipcodeC").value = list[wasUserFound].address.zipcode;
+           document.getElementById("latC").value = list[wasUserFound].address.geo.lat;
+           document.getElementById("lngC").value = list[wasUserFound].address.geo.lng;
+
+           $("#searchUserForm").toggle();//hide the search user form
+           $("#modifyForm").toggle();//display the form of user selected
+    }
+    else
+    {
+        alert("No user was found!");
+    }
+}
+
+window.modifyUser = function()
+{
+    list[wasUserFound].name = document.getElementById("nameC").value;
+    list[wasUserFound].username = document.getElementById("usernameC").value;
+    list[wasUserFound].email = document.getElementById("emailC").value ;
+    list[wasUserFound].address.street = document.getElementById("streetC").value;
+    list[wasUserFound].address.suite = document.getElementById("suiteC").value;
+    list[wasUserFound].address.city = document.getElementById("cityC").value;
+    list[wasUserFound].address.zipcode = document.getElementById("zipcodeC").value;
+    list[wasUserFound].address.geo.lat = document.getElementById("latC").value;
+    list[wasUserFound].address.geo.lng = document.getElementById("lngC").value; 
+    $("#modifyForm").toggle();//hide the modify form again
+    displayToNotifyMessage('User was changed succesfully!');   
+}
+
+
 const display = () => 
 { 
+    $("#usersTabel").toggle();
+    $('#usersTabel').append("<tr><th>id</th><th>Nssame</th><th>Username</th><th>Email</th></tr>");
     //alert(JSON.stringify(list));
     for(let i = 0; i < list.length; i++)
     {
-        $('#items').append(list[i].name + " username:" + list[i].username +"<br>");
+        $('#usersTabel').append("<tr><td>" + list[i].id +"</td><td>"+ list[i].name + "</td><td>" + list[i].username +"</td><td>" + list[i].email + "</td></tr>");
     }
+    showTable();
 }
- 
+
 let wasDisplayed = false;
 
 window.listItems = function() //use window to make function visible to the outside scope
 {
-    if(!wasDisplayed)
-    {
+    if(wasDisplayed == false)//if not displayed, display it
         display();
-        wasDisplayed = true;
-    }
+
 }
 
 window.addUserForm = function()
 {
+    hideTable();
     $(document).ready(function(){
         $("#addBtn").click(function(){
             $("#addForm").toggle();
@@ -43290,7 +43374,6 @@ window.exportToJSON = function()
     var fs = require('browserify-fs');
 
     fs.writeFile('./output.json', jsonContent);
-
 
     alert("JSON exported!");
 }

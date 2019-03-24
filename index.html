@@ -2,20 +2,30 @@
     <head>
     <title>Emilianus</title>
     </head>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <body onload="start();">
         <header id="title">
             <h1>Playing with some JSON</h1>
         </header>
-        <script type="text/javascript" src="src/script.js"></script> 
+        <script type="text/javascript" src="browser-code/script.js"></script> 
         
         <button id="button" onclick="listItems()">Display</button>
-        <button id="clearbtn" onclick="clearDisplay()">Clear</button>
+        <button id="clearbtn" onclick="clearTable()">Clear</button>
         <button id="show" onclick="exportToJSON()">Export</button>
         <button id="remove" onclick="deleteUserForm()">Remove User</button>
         <button id="addBtn" onclick="addUserForm()">Add User</button>
+        <button id="modifyBtn" onclick="modifyUserList()">Change User</button>
         
         <p id="items"></p>
+        
+        <table id="usersTabel">
+        </table>
+
+        <form id="searchUserForm" class="myForm" >
+                <b>Give username of the User to modify:</b> <input id ="searchUser" type="text" name="username">
+                <button type="button" onclick="findUser()">Search</button>
+
+            </form>
 
         <form id="deleteForm" class="myForm" >
             <b>user to delete(username):</b> <input id ="delUser" type="text" name="username">
@@ -43,9 +53,34 @@
             <b>Longitude:</b> <input id ="lng" class="inputForm" type="text" name="lng">
             <br><br><br>
             </div>
-            <button type="button" onclick="addUserToList()">Add</button>
+            <button type="button" onclick="addUserToList()">Add User</button>
         </form>
-        <p id="fillWarning">Please don't let a filed blank!</p>
+
+        <form id="modifyForm" class="myForm">
+                <div>
+                <b>Name:</b> <input id ="nameC" class="inputForm" type="text" name="name">
+                <br><br>
+                <b>Username:</b> <input id ="usernameC" class="inputForm" type="text" name="username">
+                <br><br>
+                <b>Email:</b> <input id ="emailC" class="inputForm" type="text" name="email">
+                <br><br>
+                <b>Street:</b> <input id ="streetC" class="inputForm" type="text" name="street">
+                <br><br>
+                <b>Suite:</b> <input id ="suiteC" class="inputForm" type="text" name="suite">
+                <br><br>
+                <b>City:</b> <input id ="cityC" class="inputForm" type="text" name="city">
+                <br><br>
+                <b>Zipcode:</b> <input id ="zipcodeC" class="inputForm" type="text" name="zipcode">
+                <br><br>
+                <b>Latitude:</b> <input id ="latC" class="inputForm" type="text" name="lat">
+                <br><br>
+                <b>Longitude:</b> <input id ="lngC" class="inputForm" type="text" name="lng">
+                <br><br><br>
+                </div>
+                <button type="button" onclick="modifyUser()">Modify</button>
+            </form>
+
+        <p id="notify"> </p>
         </div>
     </body>
     </html>
